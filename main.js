@@ -10,8 +10,9 @@ $form.on('submit', (e) => {
 	$input.val('');
 
 	const $li = $('<li></li>');
-	const $span = $('<span></span>');
 	$ul.append($li);
+	
+	const $span = $('<span></span>');
 	$li.append($span);
 	$span.text(text);
 
@@ -20,7 +21,8 @@ $form.on('submit', (e) => {
 	$li.append($checkbox);
 	
 
-	const $removeButton = $('<button>Remove</button>').addClass('remove');
+	const $removeButton = $('<button>Remove</button>')
+	$removeButton.addClass('remove');
 	$li.append($removeButton);
 	
 	if (text == '') {
@@ -31,26 +33,32 @@ $form.on('submit', (e) => {
 });
 
 
-$ul.on('change', (e) => {
+$ul.on('change click', (e) => {
+
+// 	Checkbox
 	const $checkbox = $(e.target);
-	const check = $checkbox.prop('checked');
 	const $checked = $checkbox.is(':checked');
-		if ($checked) {
-			$checkbox.parent().fadeTo('slow', 0.70);
-			$checkbox.attr('checked', true);
-		}else{
+	if ($checked) {
+			
+		$checkbox.parent().fadeTo('slow', 0.70);
+		
+	} else {
 
-			$checkbox.parent().fadeTo('slow', 1);
-			$checkbox.attr('checked', false);
-		}
+		$checkbox.parent().fadeTo('slow', 1);
+	}
 
+// Remove button
+
+	if (e.target.className === 'remove') {
+		
+		$(e.target).parent().hide();
+	}	
+	
 });
 
 
 
-$ul.on('click', (e) => {
-	$(e.target).parent().hide();
-});
+
 
 
 
