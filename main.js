@@ -1,52 +1,69 @@
-const form = document.querySelector('form');
-const input = form.querySelector('input');
-const ul = document.querySelector('#list');
+const $form = $(".register");
+const $input = $('.large');
+const $ul = $('#list');
 
-form.addEventListener('submit', (e) => {
+
+$form.on('submit', (e) => {
+
 	e.preventDefault();
-	const text = input.value;
-	input.value = '';
+	const text = $input.val();
+	$input.val('');
 
-	const li = document.createElement('li');
-	li.textContent = text;
-	ul.appendChild(li);
+	const $li = $('<li></li>');
+	const $span = $('<span></span>');
+	$ul.append($li);
+	$li.append($span);
+	$span.text(text);
+
+	const $checkbox = $('<input/>');
+	$checkbox.attr('type', 'checkbox').addClass('check');
+	$li.append($checkbox);
 	
-	const checkbox = document.createElement('input');
-	checkbox.type = 'checkbox';
-	li.appendChild(checkbox);
 
-	const removeButton = document.createElement('button');
-	removeButton.textContent = "Remove";
-	li.appendChild(removeButton);
-
+	const $removeButton = $('<button>Remove</button>').addClass('remove');
+	$li.append($removeButton);
+	
 	if (text == '') {
-		li.style.display = 'none';
+		$li.hide();
+	}	
+	
+	
+});
 
-	}
+
+$ul.on('change', (e) => {
+	const $checkbox = $(e.target);
+	const check = $checkbox.prop('checked');
+	const $checked = $checkbox.is(':checked');
+		if ($checked) {
+			$checkbox.parent().fadeTo('slow', 0.70);
+			$checkbox.attr('checked', true);
+		}else{
+
+			$checkbox.parent().fadeTo('slow', 1);
+			$checkbox.attr('checked', false);
+		}
+
 });
 
 
 
-ul.addEventListener('change', (e) => {
-	const checkbox = e.target;
-	const checked = checkbox.checked;
-	const list = checkbox.parentNode;
-	if (checked) {
-		list.className = 'bold';
-	} else {
-		list.className = '';
-	}
+$ul.on('click', (e) => {
+	$(e.target).parent().hide();
 });
 
 
 
-ul.addEventListener('click', (e) => {
-	if(e.target.tagName === "BUTTON") {
-		const li = e.target.parentNode;
-		const ul = li.parentNode;
-		ul.removeChild(li);
-	}
-});
+
+
+
+
+
+
+
+
+
+
 
 
 
